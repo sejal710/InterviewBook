@@ -1,0 +1,45 @@
+.logo {
+    display: flex;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    color: #F44336;
+  
+    .logo-text {
+      font-size: 24px;
+      margin-right: 4px;
+  
+      &.logo-highlight {
+        color: #000;
+      }
+    }
+  }
+  
+  .logo::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #F44336;
+    margin-right: 4px;
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+  }
+  
+  
+  
