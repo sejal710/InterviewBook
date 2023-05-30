@@ -1,0 +1,124 @@
+.edit-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .popup-container {
+    background-color: #F44336;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup {
+    background-color: #fff;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  .popup form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .popup label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .popup input[type='text'],
+  .popup input[type='email'],
+  .popup input[type='password'],
+  .popup input[type='file'] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .popup textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    resize: vertical;
+    min-height: 100px; /* Adjust the height as needed */
+  }
+  
+  .popup textarea:focus {
+    outline: none;
+    border-color: #F44336; /* Update the border color for focus state */
+  }
+  
+  .popup .upload-options {
+    display: flex;
+    justify-content: space-between;
+  }
+  .upload-options>div{
+    width: 40%;
+  }
+  
+  .popup .upload-options input[type='text'] {
+    flex-grow: 1;
+    // margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  
+  
+  .popup button[type='submit'],
+  .popup .close-popup-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F44336;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+  }
+  
+  .popup button[type='submit']:hover,
+  .popup .close-popup-button:hover {
+    background-color: #D32F2F;
+  }
+  
+
+  
+  .popup .close-popup-button {
+    background-color: #F44336;
+    margin-top: 20px;
+  }
+  
+  .popup .close-popup-button:focus {
+    outline: none;
+  }
+  
+  .popup .close-popup-button:hover {
+    background-color: #D32F2F;
+  }
+  

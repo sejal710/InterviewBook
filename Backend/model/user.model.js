@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     image:{type:String},
     profession:{type:String},
     skills:{type:String},
-    video:{type:String}
+    video:{  type: String }
 },{
     versionKey:false
 })

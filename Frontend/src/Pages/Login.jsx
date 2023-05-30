@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
 import '../Sass/Login.scss';
 import Logo from '../Components/Logo';
+import axios from 'axios'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Perform login logic here
+    let data = {email:email,password:password}
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (response.ok) {
+        // Handle successful response
+        const responseData = await response.json();
+        console.log(responseData);
+      } else {
+        // Handle error response
+        const errorData = await response.json();
+        console.error(errorData);
+      }
+    } catch (error) {
+      // Handle any network or general error
+      console.error(error);
+    }
   };
 
   return (

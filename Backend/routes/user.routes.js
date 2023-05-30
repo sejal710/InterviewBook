@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const {userModel} = require("../model/user.model");
 const userRouter = express.Router();
 
+
 userRouter.post("/register",async(req,res) => {
     const data = req.body;
     try{
@@ -46,17 +47,24 @@ userRouter.post("/login",async(req,res) => {
     }
 })
 
-userRouter.patch("/:id",async(req,res) => {
+userRouter.patch("/:id", async (req, res) => {
     const id = req.params.id;
     const payload = req.body;
-    try{
-        await userModel.findByIdAndUpdate({_id:id},payload)
-        res.send({Message:"Successfully Done🎉"})
+    try {
+        if(Object.keys(payload).length !== 0){
+            let data  = await userModel.findByIdAndUpdate({ _id: id }, payload);
+            console.log("data",data);
+            res.send({ Message: "Successfully Done🎉" });
+        }
+        else{
+            res.send({Message : "Nothing to update"})
+        }
+    } catch (e) {
+        console.log(e)
+      res.send({ Message: e.message });
     }
-    catch(e){
-        res.send({Message:e.messages})
-    }
-})
+  });
+  
 
 userRouter.get("/users",async(req,res) => {
     try{
