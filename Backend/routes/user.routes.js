@@ -69,9 +69,11 @@ userRouter.patch("/:id", async (req, res) => {
 userRouter.get("/users",async(req,res) => {
     try{
         const users = await userModel.find();
+        console.log(users)
         res.send({"Data":users})
     }
     catch(e){
+        console.log(e);
         res.send({Message:e.message})
     }
 })
@@ -79,7 +81,7 @@ userRouter.get("/users",async(req,res) => {
 userRouter.get("/:id",async(req,res) =>{
     const id = req.params.id;
     try{
-        const user = await userModel.findById(id)
+        const user = await userModel.findById(id).populate("posts","title questions")
         if(!user){
             res.send({Data:"You are not a user"})
         }
@@ -93,3 +95,6 @@ userRouter.get("/:id",async(req,res) =>{
 
 
 module.exports = {userRouter}
+
+
+// 6476c6e0e3d226b152691db7
