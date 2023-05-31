@@ -1,10 +1,11 @@
 import AllRouter from "./Router/AllRouter";
+import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
   return (
-    <div>
+    <ToastProvider>
      <AllRouter />
-    </div>
+    </ToastProvider>
   );
 }
 

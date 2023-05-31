@@ -3,6 +3,9 @@ import {Route,Routes} from 'react-router-dom'
 import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import Profile from '../Pages/Profile'
+import Home from '../Pages/Home'
+import Add from '../Pages/Add'
+import QAnswer from '../Pages/QAnswer'
 
 export default function AllRouter() {
   return (
@@ -10,6 +13,9 @@ export default function AllRouter() {
     <Route path="/" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path='/profile' element={<Profile />} />
+    <Route path='/home' element={<Home />} />
+    <Route path='/add' element={<Add />} />
+    <Route path='/ans' element={<QAnswer />} />
    </Routes>
   )
 }

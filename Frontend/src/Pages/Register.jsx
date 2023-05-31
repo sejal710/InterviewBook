@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import '../Sass/Login.scss';
 import Logo from '../Components/Logo';
+import { useToasts } from 'react-toast-notifications';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const[name,setName] = useState("")
+  const[name,setName] = useState("");
+  const [loading,setLoading] = useState(false)
+  const { addToast } = useToasts();
+  const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setLoading(true);
     let data = {email:email,password:password,name:name}
     try {
       const response = await fetch('http://localhost:8080/register', {
@@ -18,20 +24,28 @@ const Register = () => {
         },
         body: JSON.stringify(data),
       });
-  
+      const responseData = await response.json();
       if (response.ok) {
         // Handle successful response
-        const responseData = await response.json();
-        console.log(responseData);
+        setLoading(false)
+        addToast( responseData.Message, { appearance: 'success' });
+        navigate("/")
       } else {
         // Handle error response
         const errorData = await response.json();
         console.error(errorData);
+        setLoading(false)
+        addToast( responseData.Message, { appearance: 'error' });
       }
     } catch (error) {
       // Handle any network or general error
       console.error(error);
+      setLoading(false)
+      addToast( "Eroor", { appearance: 'error' });
     }
+    setName("");
+    setEmail("");
+    setPassword("")
   };
 
   return (
@@ -70,7 +84,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Create Account</button>
+        <button type="submit" disabled = {loading}>{loading === true ? "Loading....":"Create Account"}</button>
       </form>
     </div>
   );

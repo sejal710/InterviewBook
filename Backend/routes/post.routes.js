@@ -5,19 +5,18 @@ const {userModel} = require("../model/user.model");
 
 // Create a new post
 postRouter.post('/', async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const { userId, title, questions,answers} = req.body;
     // Create a new post
     const post = await postModel.create({ user: userId, title, questions,answers});
-    console.log(post);
     // Add the post's ID to the user's posts array
     await userModel.findByIdAndUpdate(userId, { $push: { posts: post._id } });
 
-    res.status(201).json(post);
+    res.status(201).json({Message :"Sucessfully Data Added"});
   } catch (error) {
     console.log(error)
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ Message: error.message });
   }
 });
 
@@ -66,9 +65,17 @@ postRouter.delete('/:postId', async (req, res) => {
 
 // Get all posts
 postRouter.get('/data', async (req, res) => {
+  const {search,titles} =  req.query
   try {
-    const posts = await postModel.find().populate("user","name");
-    console.log(posts);
+    const filter ={}
+    if (search) {
+      filter.questions= { $regex: search, $options: 'i' };
+    }
+    if (titles) {
+      const colorArray = titles.split(',').map(colors => colors.trim());
+      filter.title = { $in: colorArray };
+    }
+    const posts = await postModel.find(filter).populate("user","name");
     res.json(posts);
   } catch (error) {
     console.log(error);

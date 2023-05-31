@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import '../Sass/Login.scss';
 import Logo from '../Components/Logo';
-import axios from 'axios'
+import { useNavigate} from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading,setLoading] = useState(false)
+  const { addToast } = useToasts();
+  const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setLoading(true)
     let data = {email:email,password:password}
     try {
       const response = await fetch('http://localhost:8080/login', {
@@ -18,20 +23,34 @@ const Login = () => {
         },
         body: JSON.stringify(data),
       });
-  
       if (response.ok) {
         // Handle successful response
         const responseData = await response.json();
-        console.log(responseData);
+        setLoading(false)
+        if(responseData.Message === "Wrong Credential"){
+          addToast( responseData.Message, { appearance: 'error' });
+        }
+        else{ 
+          addToast( responseData.Message, { appearance: 'success' });
+          localStorage.setItem('Interview', JSON.stringify(responseData.ID));
+          setLoading(false)
+          navigate("/home")
+        }
+        
       } else {
-        // Handle error response
+        // Handle error responsee
         const errorData = await response.json();
         console.error(errorData);
+        setLoading(false)
+        addToast( "Eroor", { appearance: 'error' });
       }
     } catch (error) {
       // Handle any network or general error
       console.error(error);
+      addToast( "Eroor", { appearance: 'error' });
     }
+    setEmail("");
+    setPassword("")
   };
 
   return (
@@ -60,8 +79,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Login</button>
-        <p className="create-account">Don't have an account? <a href="/signup">Create Account</a></p>
+        <button type="submit" disabled={loading}>{loading === false ? "Login" : "Loading...."}</button>
+        <p className="create-account">Don't have an account? <a href="/register">Create Account</a></p>
       </form>
     </div>
   );
