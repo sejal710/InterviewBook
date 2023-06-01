@@ -12,7 +12,8 @@ export default function Add() {
     const navigate = useNavigate()
     const { addToast } = useToasts();
     const storedData = localStorage.getItem('Interview');
-    const titleoption = ["REACT",'REDUX','CSS','SASS','MERN','TYPESCRIPT','JAVASCRIPT','HTML','DSA','REACT NATIVE','TESTING','DATA STRUCTURE','OOPS']
+    const titleoption = ["REACT",'REDUX','CSS','SASS','MERN','TYPESCRIPT','JAVASCRIPT','HTML','NODEJS',
+    'DSA','REACT NATIVE','TESTING','DATA STRUCTURE','OOPS']
     if(storedData === undefined){
       navigate("/")
       return;

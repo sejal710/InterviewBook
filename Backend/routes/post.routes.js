@@ -65,7 +65,7 @@ postRouter.delete('/:postId', async (req, res) => {
 
 // Get all posts
 postRouter.get('/data', async (req, res) => {
-  const {search,titles} =  req.query
+  const {search,titles,page = 1, limit =9 } =  req.query
   try {
     const filter ={}
     if (search) {
@@ -75,8 +75,18 @@ postRouter.get('/data', async (req, res) => {
       const colorArray = titles.split(',').map(colors => colors.trim());
       filter.title = { $in: colorArray };
     }
-    const posts = await postModel.find(filter).populate("user","name");
-    res.json(posts);
+    const count = await postModel.countDocuments(filter);
+    let totalPages = 1
+    if(count > limit) {
+      totalPages = Math.ceil(count / limit)
+    }
+    const posts = await postModel.find(filter).populate("user","name").skip((page - 1) * limit)
+    .limit(limit);
+    res.json({
+      totalPages,
+      currentPage: parseInt(page),
+      posts,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Failed to retrieve the posts' });

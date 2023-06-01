@@ -4,24 +4,20 @@ import '../Sass/EditProfile.scss';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useToasts } from 'react-toast-notifications';
 
-const EditProfile = ({ popup, user }) => {
+const EditProfile = ({ popup, user,ID }) => {
   const [name, setName] = useState(user.name ? user.name : "");
   const [email, setEmail] = useState(user.email);
-  const [image, setImage] = useState("");
-  const [profession, setProfession] = useState('');
-  const [skills, setSkills] = useState([]);
-  const [skillInput, setSkillInput] = useState(''); // Track the current skill input
+  const [image, setImage] = useState(user.image ? user.image :"");
+  const [profession, setProfession] = useState(user.profession ? user.profession :"");
+  const [skills, setSkills] = useState(user.skills ? user.skills : []);
+  const [skillInput, setSkillInput] = useState(''); 
+  const [loading,setLoading] = useState(false)
   const {addToast} = useToasts()
   const skilldata = ["REACT",'REDUX','CSS','SASS','TYPESCRIPT','JAVASCRIPT','HTML','DSA','REACT NATIVE','TESTING','DATA STRUCTURE','OOPS']
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!image) {
-      alert('Image is required');
-      return;
-    }
-
+     setLoading(true)
     let obj = {
       name: name,
       email: email,
@@ -31,7 +27,7 @@ const EditProfile = ({ popup, user }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/6476c6e0e3d226b152691db7', {
+      const response = await fetch(`http://localhost:8080/${ID}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -42,14 +38,17 @@ const EditProfile = ({ popup, user }) => {
       if (response.ok) {
         const data = await response.json(); // Extract JSON response
         addToast( data.Message, { appearance: 'success' });
+        setLoading(false)
         popup(false);
       } else {
         // Handle the error case
+        setLoading(false)
         addToast( "Error", { appearance: 'error' });
         console.error('Error uploading file:', response.statusText);
       }
     } catch (error) {
       // Handle any network or server errors
+      setLoading(false)
       addToast( "Error", { appearance: 'error' });
       console.error('Network/server error:', error);
     }
@@ -57,6 +56,7 @@ const EditProfile = ({ popup, user }) => {
 
 
   const handleImageUpload = async (e) => {
+    setLoading(true)
     const file = e.target.files[0];
     let form = new FormData();
     form.append("image", file);
@@ -69,13 +69,17 @@ const EditProfile = ({ popup, user }) => {
       });
 
       if (response.ok) {
+        addToast( "Image Uploaded", { appearance: 'success' });
+        setLoading(false)
         const videoUrl = await response.json();
         setImage(videoUrl.data.display_url);
         // Use the HTTPS video URL for further processing
       } else {
-        console.log('Video upload failed');
+        addToast( "Image Not Uploded", { appearance: 'error' });
       }
     } catch (error) {
+      setLoading(false)
+      addToast( "Image Not Uploded", { appearance: 'error' });
       console.log('Error uploading video', error);
     }
   };
@@ -168,7 +172,7 @@ const EditProfile = ({ popup, user }) => {
                 </button>
               </div>
             </div>
-            <button type="submit">Save Changes</button>
+            <button type="submit" disabled={loading}>{loading === false ? "Save Changes" : "Loading...."}</button>
           </form>
         </div>
       </div>

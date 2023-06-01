@@ -80,7 +80,7 @@ userRouter.get("/users",async(req,res) => {
 userRouter.get("/:id",async(req,res) =>{
     const id = req.params.id;
     try{
-        const user = await userModel.findById(id).populate("posts","title questions")
+        const user = await userModel.findById(id).populate("posts","title questions answers")
         if(!user){
             res.send({Data:"You are not a user"})
         }

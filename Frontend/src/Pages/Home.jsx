@@ -8,7 +8,10 @@ export default function Home() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchInput,setSearchInput] = useState("")
   const [search,setSearch] = useState({search:"",disable:false})
-  const [data,setData] = useState([])
+  const [data,setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 9;
   const title = ["REACT",'REDUX','CSS','SASS','TYPESCRIPT','JAVASCRIPT','HTML','DSA','REACT NATIVE','TESTING','DATA STRUCTURE','OOPS',"MERN"]
    
   const handleCheckboxChange = (event) => {
@@ -28,7 +31,7 @@ export default function Home() {
   
   const fetchData = async () => {
     try {
-      let api =`http://localhost:8080/post/data?`
+      let api =`http://localhost:8080/post/data?page=${currentPage}&limit=${limit}`
       if(search.search){
         api = `${api}&search=${search.search}`
       }
@@ -37,7 +40,9 @@ export default function Home() {
       }
       const response = await fetch(api); // Replace with your API endpoint
       const jsonData = await response.json();
-      setData(jsonData);
+      console.log(jsonData)
+      setData(jsonData.posts);
+      setTotalPages(jsonData.totalPages);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -45,14 +50,18 @@ export default function Home() {
 
   useEffect(() => {
     fetchData()
-  },[search,checkedItems])
+  },[search,checkedItems,currentPage])
 
-  console.log(data)
-  console.log("checked",checkedItems);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
   return (
     <div>
       <Navbar />
       <div className='home'>
+       <div className='home_data'>
       <div className='filter'>
 
       <h3 className="div-with-underline">Search By Questions</h3>
@@ -90,11 +99,23 @@ export default function Home() {
 
        <div className='data'>
         {data && data.map((el,i) => (
-          <Data data={el} key={i} />
+          <Data data={el} key={i} userId={el.user._id}/>
         ))}
         </div> 
-
+        </div> 
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={page === currentPage ? 'active' : ''}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
       </div>
+      
       <AddData />
     </div>
   )
