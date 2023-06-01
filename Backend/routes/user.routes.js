@@ -66,9 +66,13 @@ userRouter.patch("/:id", async (req, res) => {
   
 
 userRouter.get("/users",async(req,res) => {
+    const {search} = req.query;
     try{
-        const users = await userModel.find();
-        console.log(users)
+        const filter ={}
+        if (search) {
+          filter.name= { $regex: search, $options: 'i' };
+        }
+        const users = await userModel.find(filter);
         res.send({"Data":users})
     }
     catch(e){
