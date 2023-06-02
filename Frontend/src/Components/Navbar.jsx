@@ -14,7 +14,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-section">
-      <Link to="/friends" className="link">
+      <Link to="/friend" className="link">
         <FaUsers className="profile-icon" />
       </Link>
       <Link to="/profile" className="link">

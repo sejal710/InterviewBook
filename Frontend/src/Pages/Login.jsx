@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true)
     let data = {email:email,password:password}
     try {
-      const response = await fetch('http://localhost:8080/login', {
+      const response = await fetch(`${process.env.REACT_APP_API}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,6 +29,7 @@ const Login = () => {
         setLoading(false)
         if(responseData.Message === "Wrong Credential"){
           addToast( responseData.Message, { appearance: 'error' });
+          setLoading(false)
         }
         else{ 
           addToast( responseData.Message, { appearance: 'success' });

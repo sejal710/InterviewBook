@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import AddData from '../Components/AddData'
 import  '../Sass/Home.scss'
 import Data from '../Components/Data';
+import Loading from '../Components/Loading';
 
 export default function Home() {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -31,7 +32,7 @@ export default function Home() {
   
   const fetchData = async () => {
     try {
-      let api =`http://localhost:8080/post/data?page=${currentPage}&limit=${limit}`
+      let api =`${process.env.REACT_APP_API}/post/data?page=${currentPage}&limit=${limit}`
       if(search.search){
         api = `${api}&search=${search.search}`
       }
@@ -40,7 +41,6 @@ export default function Home() {
       }
       const response = await fetch(api); // Replace with your API endpoint
       const jsonData = await response.json();
-      console.log(jsonData)
       setData(jsonData.posts);
       setTotalPages(jsonData.totalPages);
     } catch (error) {
@@ -56,6 +56,10 @@ export default function Home() {
     setCurrentPage(pageNumber);
   };
 
+  const handleQuestion = () => {
+    setCheckedItems([]);
+    setSearch({search:"",disable:false})
+  }
 
   return (
     <div>
@@ -95,12 +99,17 @@ export default function Home() {
         </label>
         ))}
        </div>
+
+       <div className='question'>
+        <button onClick={handleQuestion}>All Questions</button>
+       </div>
        </div> 
 
        <div className='data'>
         {data && data.map((el,i) => (
           <Data data={el} key={i} userId={el.user._id}/>
         ))}
+        {data.length === 0 && <Loading />}
         </div> 
         </div> 
         <div className="pagination">
@@ -115,7 +124,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-      
       <AddData />
     </div>
   )

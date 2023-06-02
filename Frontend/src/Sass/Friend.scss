@@ -1,0 +1,92 @@
+.friend{
+    position: absolute;
+    z-index: -1;
+    margin: 70px 0px 0px 10px;
+    .search-container {
+        .input-container {
+          display: flex;
+          align-items: center;
+      
+          input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 16px;
+          }
+      
+          button {
+            margin-left: 3px;
+            padding: 8px 16px;
+            background-color: var(--mainColor);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+          }
+          @media (max-width: 440px) {
+            flex-direction: column;
+            align-items: flex-start;
+            button{
+              margin-left: 0;
+              margin-top: 2px;
+            }
+          }
+        }
+      }
+
+     .users{
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      @media (min-width: 530px) and (max-width: 800px){
+        grid-template-columns: repeat(2,1fr);
+      }
+      @media (max-width: 530px) {
+        grid-template-columns: repeat(1,1fr);
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        border: 1px solid var(--mainColor);
+        border-radius: 5px;
+        
+        .user-image {
+             margin-left: 10px;
+          img {
+            border: 2px solid var(--mainColor);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+          }
+        }
+      
+        .user-details {
+          margin-right: 10px;
+          h3 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--mainColor);
+          }
+      
+          p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: black;
+          }
+        }
+        &:hover {
+          /* Add hover styles here */
+          background-color: #f5f5f5;
+          box-shadow: 0 0 20px var(--mainColor);
+        }
+      }
+     }
+     
+      
+}

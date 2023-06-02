@@ -6,6 +6,7 @@ import Profile from '../Pages/Profile'
 import Home from '../Pages/Home'
 import Add from '../Pages/Add'
 import QAnswer from '../Pages/QAnswer'
+import Friend from '../Pages/Friend'
 
 export default function AllRouter() {
   return (
@@ -16,6 +17,7 @@ export default function AllRouter() {
     <Route path='/home' element={<Home />} />
     <Route path='/add' element={<Add />} />
     <Route path='/ans' element={<QAnswer />} />
+    <Route path='/friend' element={<Friend />} />
    </Routes>
   )
 }

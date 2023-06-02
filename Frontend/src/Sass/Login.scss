@@ -38,14 +38,14 @@
     input {
       padding: 0.5rem;
       width: 250px;
-      border: 1px solid #F44336;
+      border: 1px solid var(--mainColor);
       border-radius: 3px;
     }
   }
 
   button {
     padding: 0.5rem 1rem;
-    background-color: #F44336;
+    background-color: var(--mainColor);
     color: #fff;
     border: none;
     cursor: pointer;
@@ -58,7 +58,7 @@
     color: #000;
 
     a {
-      color: #F44336;
+      color: var(--mainColor);
       text-decoration: none;
 
       &:hover {

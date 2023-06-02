@@ -1,0 +1,51 @@
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 80vw;
+}
+
+.loading-spinner {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--mainColor);
+  animation: bounce 1s infinite;
+  top: 35px;
+  left: 25px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    top: 35px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+  }
+  50% {
+    top: 0;
+    height: 70px;
+    width: 70px;
+    border-radius: 0;
+  }
+}

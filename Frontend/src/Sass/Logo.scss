@@ -3,7 +3,7 @@
     align-items: center;
     font-family: 'Arial', sans-serif;
     font-weight: 700;
-    color: #F44336;
+    color: var(--mainColor);
   
     .logo-text {
       font-size: 24px;
@@ -24,7 +24,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #F44336;
+    background-color: var(--mainColor);
     margin-right: 4px;
     animation: pulse 1s infinite;
   }

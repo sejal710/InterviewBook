@@ -39,7 +39,7 @@ export default function Add() {
         questions : question,
         answers : answer
       }
-      fetch(`http://localhost:8080/post`, {
+      fetch(`${process.env.REACT_APP_API}/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import '../Sass/EditProfile.scss';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useToasts } from 'react-toast-notifications';
 
+
 const EditProfile = ({ popup, user,ID }) => {
   const [name, setName] = useState(user.name ? user.name : "");
   const [email, setEmail] = useState(user.email);
@@ -27,7 +28,7 @@ const EditProfile = ({ popup, user,ID }) => {
     };
 
     try {
-      const response = await fetch(`http://localhost:8080/${ID}`, {
+      const response = await fetch(`${process.env.REACT_APP_API}/${ID}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
