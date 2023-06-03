@@ -37,6 +37,7 @@ Once the development server is running, you can access the application by naviga
 
 #### Usage
 - Register
+<img src='./Images/Register.png' alt="Register">
 - Login
 - Home Page
 - Profile
@@ -56,6 +57,7 @@ Once the development server is running, you can access the application by naviga
           - Loading.jsx
           - Logo.jsx
           - Navbar.jsx
+          - Footer.jsx
         - /Pages
            - Add.jsx
            - Friend.jsx
@@ -72,6 +74,7 @@ Once the development server is running, you can access the application by naviga
           - Data.scss
           - EditProfile.scss
           - Friend.scss
+          - Footer.scss
           - Home.scss
           - Loading.scss
           - Login.scss
@@ -101,6 +104,7 @@ Once the development server is running, you can access the application by naviga
     - package-lock.json
     - package.json
   - /Readme.md
+  - /Images
 
 
 ## Backend
