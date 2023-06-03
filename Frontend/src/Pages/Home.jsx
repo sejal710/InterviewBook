@@ -4,6 +4,7 @@ import AddData from '../Components/AddData'
 import  '../Sass/Home.scss'
 import Data from '../Components/Data';
 import Loading from '../Components/Loading';
+import Footer from '../Components/Footer';
 
 export default function Home() {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -123,6 +124,7 @@ export default function Home() {
             </button>
           ))}
         </div>
+        <Footer />
       </div>
       <AddData />
     </div>
