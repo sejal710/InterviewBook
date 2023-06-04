@@ -37,13 +37,19 @@ Once the development server is running, you can access the application by naviga
 
 #### Usage
 - Register
-<img src='./Images/Register.png' alt="Register">
+    <img src='./Images/Register.png' alt="Register">
 - Login
+    <img src='./Images/Login.png' alt="Login">
 - Home Page
+    <img src='./Images/Home.png' alt="Home">
 - Profile
+    <img src='./Images/Profile.png' alt="Profile">
 - Add Questions
+     <img src='./Images/AddData.png' alt="AddQuestions">
 - Update Profile
+     <img src='./Images/UpdateProfile.png' alt="Update Profile">
 - See Your Friend Account
+    <img src='./Images/Friends.png' alt="Friends">
 
 #### Folder Structure
 - /InterviewBook
