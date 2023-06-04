@@ -53,12 +53,12 @@ const Profile = () => {
       {popup === false && (<>
              <div className="profile-header">
       <h2>Profile</h2>
-        {location.state === null  && <button className="edit-button" onClick={handleEdit}>
+        {location.state === null   && <button className="edit-button" onClick={handleEdit}>
           Edit
         </button>}
-        {id !== null && ID === id.userId  && <button className="edit-button" onClick={handleEdit}>
+        {/* {id !== null && ID === id.userId  && <button className="edit-button" onClick={handleEdit}>
           Edit
-        </button>}
+        </button>} */}
 
     </div>
     <div className="profile-content">

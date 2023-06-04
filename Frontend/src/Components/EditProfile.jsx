@@ -102,13 +102,13 @@ const EditProfile = ({ popup, user,ID }) => {
 
   return (
     <div className="edit-profile-container">
-      <div className="popup-container">
+       <div className="popup-container">
         <div className="popup">
           <h2>Edit Profile</h2>
           <button className="close-popup-button" onClick={togglePopup}>
             <AiOutlineClose />
           </button>
-          <form onSubmit={handleSubmit}>
+         <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name:</label>
               <input
@@ -176,7 +176,7 @@ const EditProfile = ({ popup, user,ID }) => {
             <button type="submit" disabled={loading}>{loading === false ? "Save Changes" : "Loading...."}</button>
           </form>
         </div>
-      </div>
+      </div> 
     </div>
   );
 };
