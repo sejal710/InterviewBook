@@ -86,8 +86,17 @@ const EditProfile = ({ popup, user,ID }) => {
   };
 
   const handleSkillAdd = () => {
+    // if (skillInput.trim() !== '') {
+    //   setSkills(prevSkills => [...prevSkills, skillInput.trim()]);
+    //   setSkillInput('');
+    // }
     if (skillInput.trim() !== '') {
-      setSkills(prevSkills => [...prevSkills, skillInput.trim()]);
+      if (skills.includes(skillInput.trim())) {
+
+        addToast('Skill already exists', { appearance: 'error' });
+      } else {
+        setSkills(prevSkills => [...prevSkills, skillInput.trim()]);
+      }
       setSkillInput('');
     }
   };
@@ -103,7 +112,7 @@ const EditProfile = ({ popup, user,ID }) => {
   return (
     <div className="edit-profile-container">
        <div className="popup-container">
-        <div className="popup">
+         <div className="popup">
           <h2>Edit Profile</h2>
           <button className="close-popup-button" onClick={togglePopup}>
             <AiOutlineClose />
@@ -175,7 +184,7 @@ const EditProfile = ({ popup, user,ID }) => {
             </div>
             <button type="submit" disabled={loading}>{loading === false ? "Save Changes" : "Loading...."}</button>
           </form>
-        </div>
+        </div> 
       </div> 
     </div>
   );

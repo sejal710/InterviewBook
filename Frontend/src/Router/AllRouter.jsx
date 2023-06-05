@@ -7,6 +7,7 @@ import Home from '../Pages/Home'
 import Add from '../Pages/Add'
 import QAnswer from '../Pages/QAnswer'
 import Friend from '../Pages/Friend'
+import Edit from '../Pages/Edit'
 
 export default function AllRouter() {
   return (
@@ -18,6 +19,7 @@ export default function AllRouter() {
     <Route path='/add' element={<Add />} />
     <Route path='/ans' element={<QAnswer />} />
     <Route path='/friend' element={<Friend />} />
+    <Route path='/edit' element={<Edit />} />
    </Routes>
   )
 }

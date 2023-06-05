@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Data({ data, user, userId }) {
   const [showPopup, setShowPopup] = useState(false);
+  const [deletePopup,setDeletePopup] = useState(false)
   const navigate = useNavigate();
   const storedData = localStorage.getItem('Interview');
   const ID = JSON.parse(storedData)
@@ -15,11 +16,22 @@ export default function Data({ data, user, userId }) {
     setShowPopup(!showPopup)
   }
   const handleUpdate = () => {
+    navigate('/edit',{state:{data}});
     setShowPopup(false)
   }
-  const handleDelete = () => {
-    setShowPopup(false)
+  const handleDelete = () => {  
+    setShowPopup(false);
+    setDeletePopup(true)
   }
+
+  const handleConfirmDelete = () => {
+    // Delete logic goes here
+    
+  };
+
+  const handleCancelDelete = () => {
+    setDeletePopup(false)
+  };
 
   return (
     <div className="styled-div">
@@ -35,11 +47,38 @@ export default function Data({ data, user, userId }) {
     </div> : <div className="name">{user}</div> }
      
     {showPopup && (
-        <div className="popup">
+        <div className="pop">
           <button className="update-button" onClick={handleUpdate}>Edit</button>
           <button className="delete-button" onClick={handleDelete}>Delete</button>
         </div>
       )}
+
+    {deletePopup && (
+        <ConfirmationPopup
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
   )
 }
+
+
+
+
+
+const ConfirmationPopup = ({ onConfirm, onCancel }) => {
+  return (
+    <div class="popup-container-delete">
+  <div class="confirmation-popup-delete">
+    <p>Are you sure you want to delete this item?</p>
+    <div class="confirmation-buttons">
+      <button onClick={onConfirm}>Yes</button>
+      <button onClick={onCancel}>No</button>
+    </div>
+  </div>
+  <div class="popup-background-delete"></div>
+</div>
+  );
+};
+
