@@ -1,12 +1,14 @@
 
 import React,{useState} from 'react';
 import '../Sass/Data.scss'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 export default function Data({ data, user, userId }) {
   const [showPopup, setShowPopup] = useState(false);
   const [deletePopup,setDeletePopup] = useState(false)
   const navigate = useNavigate();
+  const { addToast } = useToasts();
   const storedData = localStorage.getItem('Interview');
   const ID = JSON.parse(storedData)
   const handleClick = () => {
@@ -24,8 +26,25 @@ export default function Data({ data, user, userId }) {
     setDeletePopup(true)
   }
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = (id) => {
     // Delete logic goes here
+    console.log(id);
+    fetch(`${process.env.REACT_APP_API}/post/${id}`, { method: 'DELETE' }) // Replace with your actual API endpoint and ID
+    .then(response => {
+      if (response.ok) {
+        addToast( "Sucessfully Deleted", { appearance: 'sucess'});
+        setDeletePopup(false)
+      } else {
+        addToast( "Oops! not Deleted", { appearance: 'error'});
+        console.error('Failed to delete data');
+        setDeletePopup(false)
+      }
+    })
+    .catch(error =>{
+      console.error(error)
+      addToast( "Oops! not Deleted", { appearance: 'error'});
+      setDeletePopup(false)
+    });
     
   };
 
@@ -57,6 +76,7 @@ export default function Data({ data, user, userId }) {
         <ConfirmationPopup
           onConfirm={handleConfirmDelete}
           onCancel={handleCancelDelete}
+          ID = {userId}
         />
       )}
     </div>
@@ -67,13 +87,13 @@ export default function Data({ data, user, userId }) {
 
 
 
-const ConfirmationPopup = ({ onConfirm, onCancel }) => {
+const ConfirmationPopup = ({ onConfirm, onCancel,ID }) => {
   return (
     <div class="popup-container-delete">
   <div class="confirmation-popup-delete">
     <p>Are you sure you want to delete this item?</p>
     <div class="confirmation-buttons">
-      <button onClick={onConfirm}>Yes</button>
+      <button onClick={() => onConfirm(ID)}>Yes</button>
       <button onClick={onCancel}>No</button>
     </div>
   </div>

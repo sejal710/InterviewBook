@@ -2,12 +2,8 @@ import React from 'react';
 import '../Sass/QAnswer.scss';
 import Navbar from '../Components/Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {Remarkable} from 'remarkable';
 
-function convertToMarkdown(data) {
-  const md = new Remarkable();
-  return {__html: md.render(data)};
-}
+
 
 const QAnswer = () => {
     const location = useLocation();
@@ -28,8 +24,8 @@ const QAnswer = () => {
     </div>}
     <div className="question">
       <h2>{data.questions}</h2>
-      <pre className="answer"  dangerouslySetInnerHTML={convertToMarkdown(data.answers)}>
-        {/* {data.answers} */}
+      <pre className="answer">
+        {data.answers}
       </pre>
     </div> 
   </div>

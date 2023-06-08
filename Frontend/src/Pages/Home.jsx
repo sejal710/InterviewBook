@@ -34,6 +34,7 @@ export default function Home() {
   const fetchData = async () => {
     try {
       let api =`${process.env.REACT_APP_API}/post/data?page=${currentPage}&limit=${limit}`
+      console.log(api);
       if(search.search){
         api = `${api}&search=${search.search}`
       }
