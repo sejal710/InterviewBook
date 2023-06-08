@@ -32,7 +32,8 @@ postRouter.patch('/:postId', async (req, res) => {
       return res.status(404).json({ error: 'Post not found' });
     }
 
-    res.json(post);
+    res.json({Message:"Sucessfully Post Updated"});
+    
   } catch (error) {
     res.status(500).json({ error: 'Failed to update the post' });
   }
@@ -45,8 +46,8 @@ postRouter.delete('/:postId', async (req, res) => {
 
     // Find the post and its associated user
     const post = await postModel.findById(postId);
-    const user = await userModel.findById(post.user);
-
+    const user = await userModel.findById(post.user._id);
+     console.log(post.user._id)
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
     }
@@ -59,7 +60,8 @@ postRouter.delete('/:postId', async (req, res) => {
 
     res.json({ message: 'Post deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete the post' });
+    console.log(error)
+    res.status(500).json({ error: error.message });
   }
 });
 
