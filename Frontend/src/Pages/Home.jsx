@@ -13,9 +13,8 @@ export default function Home() {
   const [data,setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const limit = 9;
-  const title = ["REACT",'REDUX','CSS','SASS','TYPESCRIPT','JAVASCRIPT','HTML','DSA','REACT NATIVE','TESTING','DATA STRUCTURE','OOPS',"MERN"]
-   
+  const [checkbox,setCheckbox] = useState([])
+  const limit = 12;
   const handleCheckboxChange = (event) => {
     const itemName = event.target.name;
     if (event.target.checked) {
@@ -33,6 +32,7 @@ export default function Home() {
   
   const fetchData = async () => {
     try {
+
       let api =`${process.env.REACT_APP_API}/post/data?page=${currentPage}&limit=${limit}`
       if(search.search){
         api = `${api}&search=${search.search}`
@@ -42,6 +42,7 @@ export default function Home() {
       }
       const response = await fetch(api); // Replace with your API endpoint
       const jsonData = await response.json();
+      setCheckbox(jsonData.distinctTitles)
       setData(jsonData.posts);
       setTotalPages(jsonData.totalPages);
     } catch (error) {
@@ -82,7 +83,7 @@ export default function Home() {
 
       <div className="checkbox-list">
         
-      {title.map((item, index) => (
+      {checkbox && checkbox.map((item, index) => (
         <label key={index} className="checkbox-label">
           <input
             type="checkbox"
