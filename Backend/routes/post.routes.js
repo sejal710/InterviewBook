@@ -77,6 +77,7 @@ postRouter.get('/data', async (req, res) => {
       const colorArray = titles.split(',').map(colors => colors.trim());
       filter.title = { $in: colorArray };
     }
+    
     const count = await postModel.countDocuments(filter);
     let totalPages = 1
     if(count > limit) {
@@ -84,10 +85,12 @@ postRouter.get('/data', async (req, res) => {
     }
     const posts = await postModel.find(filter).populate("user","name").skip((page - 1) * limit)
     .limit(limit);
+    const distinctTitles = await postModel.distinct('title', filter);
     res.json({
       totalPages,
       currentPage: parseInt(page),
       posts,
+      distinctTitles
     });
   } catch (error) {
     console.log(error);
