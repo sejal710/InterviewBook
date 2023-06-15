@@ -42,7 +42,10 @@ export default function Home() {
       }
       const response = await fetch(api); // Replace with your API endpoint
       const jsonData = await response.json();
-      setCheckbox(jsonData.distinctTitles)
+      if(data.length === 0){
+        setCheckbox(jsonData.distinctTitles)
+      }
+      
       setData(jsonData.posts);
       setTotalPages(jsonData.totalPages);
     } catch (error) {
